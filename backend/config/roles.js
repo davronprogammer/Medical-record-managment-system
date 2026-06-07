@@ -1,0 +1,9 @@
+const ADMIN = "ADMIN";
+const CLINICIAN = "CLINICIAN";
+const RECEPTIONIST = "RECEPTIONIST";
+
+module.exports = {
+  ADMIN,
+  CLINICIAN,
+  RECEPTIONIST,
+};

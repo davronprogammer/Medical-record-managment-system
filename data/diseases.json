@@ -1,0 +1,14 @@
+[
+  {
+    "diseaseId": 1,
+    "patientId": 1,
+    "icdCode": "I10",
+    "description": "juda yomon kassalik"
+  },
+  {
+    "diseaseId": 2,
+    "patientId": 1,
+    "icdCode": "T34",
+    "description": "T34 ham juda zor kino"
+  }
+]

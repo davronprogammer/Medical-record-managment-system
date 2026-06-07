@@ -1,0 +1,26 @@
+[
+  {
+    "doctorId": 1,
+    "fullName": "Ali Karimov",
+    "specialization": "Cardiology",
+    "departmentId": 1,
+    "phone": "+998901234567",
+    "email": "ali@gmail.com"
+  },
+  {
+    "doctorId": 2,
+    "fullName": "hey",
+    "specialization": "asd",
+    "departmentId": 1,
+    "phone": "+998905670733",
+    "email": "ogbkiy@gmail.com"
+  },
+  {
+    "doctorId": 3,
+    "fullName": "Davron",
+    "specialization": "asd",
+    "departmentId": 2,
+    "phone": "+998905670733",
+    "email": "ogbkiy@gmail.com"
+  }
+]

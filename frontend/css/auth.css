@@ -1,0 +1,337 @@
+:root {
+  --primary: #33AC9E;
+  --primary-hover: #2D9A8D;
+  --background: #F5F7FA;
+  --card: #FFFFFF;
+  --border: #E5E7EB;
+  --text: #1F2937;
+  --secondary: #6B7280;
+  --success: #22C55E;
+  --danger: #EF4444;
+  --soft: #E7F8F5;
+  --shadow: 0 8px 30px rgba(0,0,0,.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+}
+
+.auth-page {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 32px;
+  background-image: url("https://img.magnific.com/premium-photo/stethoscope-eounceass-grouping-digital-background_961875-396154.jpg?semt=ais_hybrid&w=740&q=80");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.auth-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,.20);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.login-shell {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: .94fr 1fr;
+  width: min(980px, 100%);
+  min-height: 600px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 28px;
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 30px 80px rgba(0,0,0,.18);
+  backdrop-filter: blur(20px);
+  animation: pageIn .7s ease both;
+}
+
+.brand-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 36px;
+  background:
+    linear-gradient(135deg, rgba(51,172,158,0.88), rgba(24,123,114,0.82));
+  border-right: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(8px);
+  color: var(--card);
+}
+
+.brand-panel__top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-logo {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  border: 1px solid rgba(255,255,255,.34);
+  border-radius: 16px;
+  background: rgba(255,255,255,.18);
+  box-shadow: var(--shadow);
+}
+
+.brand-logo span {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.brand-kicker {
+  margin: 0 0 2px;
+  color: rgba(255,255,255,.72);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.brand-panel h1 {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.15;
+}
+
+.medical-visual {
+  display: grid;
+  place-items: center;
+  min-height: 330px;
+}
+
+.medical-visual__image {
+  width: min(86%, 390px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 24px 34px rgba(31,41,55,.16));
+  transform-origin: center;
+  animation: medicalFloat 6s ease-in-out infinite;
+}
+
+.brand-copy {
+  max-width: 330px;
+  margin: 0;
+  color: rgba(255,255,255,.84);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.65;
+}
+
+.login-panel {
+  display: grid;
+  place-items: center;
+  padding: 44px;
+  background: rgba(255,255,255,.58);
+  backdrop-filter: blur(12px);
+}
+
+.login-card {
+  width: min(100%, 360px);
+}
+
+.login-card__header {
+  margin-bottom: 28px;
+}
+
+.login-card__eyebrow {
+  display: inline-flex;
+  margin-bottom: 10px;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.login-card h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 26px;
+  line-height: 1.22;
+}
+
+.login-card p {
+  margin: 9px 0 0;
+  color: var(--secondary);
+  font-size: 14px;
+}
+
+.login-form {
+  display: grid;
+  gap: 16px;
+}
+
+.form-field {
+  display: grid;
+  gap: 8px;
+}
+
+.form-field label {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-field input {
+  width: 100%;
+  height: 50px;
+  padding: 0 15px;
+  border: 1px solid #D1D5DB;
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+  font-size: 14px;
+  outline: 0;
+  transition: all .25s ease;
+}
+
+.form-field input::placeholder {
+  color: var(--secondary);
+}
+
+.form-field input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--soft);
+}
+
+.login-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.login-row a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: all .25s ease;
+}
+
+.login-row a:hover {
+  color: var(--primary-hover);
+}
+
+.remember-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--secondary);
+  cursor: pointer;
+}
+
+.remember-control input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary);
+}
+
+.auth-message {
+  min-height: 20px;
+  margin: 0;
+  color: var(--danger);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.auth-message.is-success {
+  color: var(--success);
+}
+
+.login-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--primary);
+  color: var(--card);
+  font-size: 20px;
+  font-weight: 600;
+  box-shadow: 0 12px 26px rgba(51,172,158,.24);
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+.login-button:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.login-button:disabled {
+  cursor: not-allowed;
+  opacity: .7;
+  transform: none;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes medicalFloat {
+  0% {
+    opacity: .92;
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-14px) scale(1.025);
+  }
+
+  100% {
+    opacity: .94;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 860px) {
+  .auth-page {
+    padding: 20px;
+  }
+
+  .login-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-panel {
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 520px) {
+  .brand-panel,
+  .login-panel {
+    padding: 28px;
+  }
+
+  .login-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MRMS | Kirish</title>
+  <link rel="stylesheet" href="./css/auth.css">
+</head>
+<body class="auth-page">
+  <main class="login-shell" aria-label="MRMS tizimiga kirish">
+    <section class="brand-panel" aria-label="MRMS haqida">
+      <div class="brand-panel__top">
+        <div class="brand-logo" aria-hidden="true"><span>M</span></div>
+        <div>
+          <p class="brand-kicker">Medical Record Management System</p>
+          <h1>MRMS</h1>
+        </div>
+      </div>
+
+      <div class="medical-visual" aria-hidden="true">
+        <img class="medical-visual__image" src="./images/doctor.png" alt="">
+      </div>
+
+      <p class="brand-copy">
+        Klinikadagi bo'limlar, shifokorlar, bemorlar va tashxis yozuvlarini role asosida boshqarish paneli.
+      </p>
+    </section>
+
+    <section class="login-panel">
+      <div class="login-card">
+        <div class="login-card__header">
+          <span class="login-card__eyebrow">Xavfsiz kirish</span>
+          <h2>Hisobingizga kiring</h2>
+          <p>Backend sessiyasi httpOnly cookie orqali saqlanadi.</p>
+        </div>
+
+        <form class="login-form" id="loginForm">
+          <div class="form-field">
+            <label for="username">Foydalanuvchi nomi</label>
+            <input id="username" name="username" type="text" placeholder="admin" autocomplete="username">
+          </div>
+
+          <div class="form-field">
+            <label for="password">Parol</label>
+            <input id="password" name="password" type="password" placeholder="admin123" autocomplete="current-password">
+          </div>
+
+          <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+
+          <button class="login-button auth-submit" type="submit">
+            <span>Kirish</span>
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./js/auth.js"></script>
+</body>
+</html>
