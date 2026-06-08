@@ -138,7 +138,7 @@ router.get("/:id", patientsController.getPatientById);
  * /api/patients:
  *   post:
  *     summary: Create a patient
- *     description: Protected route. ADMIN and RECEPTIONIST users can create patients.
+ *     description: Protected route. ADMIN, CLINICIAN and RECEPTIONIST users can create patients.
  *     tags: [Patients]
  *     requestBody:
  *       required: true
@@ -185,7 +185,7 @@ router.get("/:id", patientsController.getPatientById);
 router.post(
   "/",
   authenticate,
-  authorize(ADMIN, RECEPTIONIST),
+  authorize(ADMIN, CLINICIAN, RECEPTIONIST),
   patientsController.createPatient
 );
 
@@ -194,7 +194,7 @@ router.post(
  * /api/patients/{id}:
  *   put:
  *     summary: Update a patient
- *     description: Protected route. ADMIN and RECEPTIONIST users can update patients.
+ *     description: Protected route. ADMIN, CLINICIAN and RECEPTIONIST users can update patients.
  *     tags: [Patients]
  *     parameters:
  *       - in: path
@@ -250,7 +250,7 @@ router.post(
 router.put(
   "/:id",
   authenticate,
-  authorize(ADMIN, RECEPTIONIST),
+  authorize(ADMIN, CLINICIAN, RECEPTIONIST),
   patientsController.updatePatient
 );
 
@@ -259,7 +259,7 @@ router.put(
  * /api/patients/{id}:
  *   delete:
  *     summary: Delete a patient
- *     description: Protected route. ADMIN and RECEPTIONIST users can delete patients.
+ *     description: Protected route. ADMIN, CLINICIAN and RECEPTIONIST users can delete patients.
  *     tags: [Patients]
  *     parameters:
  *       - in: path
@@ -281,7 +281,7 @@ router.put(
 router.delete(
   "/:id",
   authenticate,
-  authorize(ADMIN, RECEPTIONIST),
+  authorize(ADMIN, CLINICIAN, RECEPTIONIST),
   patientsController.deletePatient
 );
 

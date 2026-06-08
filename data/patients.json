@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "patientId": 1,
+    "fullName": "Davron Normamatov",
+    "age": 223,
+    "gender": "Erkak",
+    "phone": "+998994690039",
+    "address": "tashkent",
+    "doctorId": 1
+  },
+  {
+    "patientId": 2,
+    "fullName": "Annurbek G'aybullayev",
+    "age": 19,
+    "gender": "Erkak",
+    "phone": "+998913442333",
+    "address": "Denov",
+    "doctorId": 1
+  }
+]
