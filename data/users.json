@@ -3,19 +3,26 @@
     "id": 1,
     "username": "admin",
     "password": "admin123",
-    "role": "ADMIN"
+    "role": "ADMIN",
+    "fullName": "MRMS Administrator",
+    "position": "Tizim administratori"
   },
   {
     "id": 2,
     "username": "doctor",
     "password": "doctor123",
-    "role": "CLINICIAN"
+    "role": "CLINICIAN",
+    "fullName": "Ali Karimov",
+    "position": "Shifokor",
+    "doctorId": 1
   },
   {
     "id": 3,
     "username": "reception",
     "password": "reception123",
-    "role": "RECEPTIONIST"
+    "role": "RECEPTIONIST",
+    "fullName": "Qabulxona xodimi",
+    "position": "Qabulxona"
   }
 ]
   

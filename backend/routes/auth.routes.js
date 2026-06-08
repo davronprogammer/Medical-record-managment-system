@@ -65,10 +65,6 @@ router.post("/logout", authController.logout);
  *       401:
  *         description: Unauthorized
  */
-router.get("/me", authenticate, (req, res) => {
-  res.json({
-    user: req.user,
-  });
-});
+router.get("/me", authenticate, authController.me);
 
 module.exports = router;

@@ -19,11 +19,7 @@ const login = async (req, res) => {
   }
 
   // Only store safe user information inside the token.
-  const tokenData = {
-    id: user.id,
-    username: user.username,
-    role: user.role,
-  };
+  const { password: _password, ...tokenData } = user;
 
   const token = jwt.sign(tokenData, process.env.JWT_SECRET, {
     expiresIn: "1d",
@@ -53,7 +49,27 @@ const logout = (req, res) => {
   });
 };
 
+const me = async (req, res) => {
+  const users = await readData("users.json");
+  const user = users.find((item) => {
+    return item.id === req.user.id;
+  });
+
+  if (!user) {
+    return res.json({
+      user: req.user,
+    });
+  }
+
+  const { password: _password, ...safeUser } = user;
+
+  return res.json({
+    user: safeUser,
+  });
+};
+
 module.exports = {
   login,
   logout,
+  me,
 };

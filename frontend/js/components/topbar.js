@@ -8,13 +8,34 @@ const formatUzbekDate = (date = new Date()) => {
 };
 
 const getInitials = (fullName) => {
-  return fullName
+  return String(fullName || "MRMS")
     .split(" ")
     .filter(Boolean)
     .slice(0, 2)
     .map((part) => part[0])
     .join("")
     .toUpperCase();
+};
+
+const escapeHtml = (value) => {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+};
+
+const createProfileRows = (details = []) => {
+  return details
+    .filter((item) => item?.value)
+    .map((item) => `
+      <div class="app-profile-menu__row">
+        <dt>${escapeHtml(item.label)}</dt>
+        <dd>${escapeHtml(item.value)}</dd>
+      </div>
+    `)
+    .join("");
 };
 
 const createIcon = (path) => {
@@ -35,11 +56,16 @@ export const createTopbar = ({
   user = {
     fullName: "Admin foydalanuvchi",
     role: "ADMIN",
+    details: [],
   },
   searchPlaceholder = "Qidirish...",
 } = {}) => {
   const topbar = document.createElement("header");
   topbar.className = "app-topbar";
+
+  const userName = user.fullName || user.username || "MRMS foydalanuvchi";
+  const roleLabel = user.role || "Foydalanuvchi";
+  const profileRows = createProfileRows(user.details);
 
   topbar.innerHTML = `
     <div class="app-topbar__left">
@@ -61,11 +87,31 @@ export const createTopbar = ({
         ${createIcon(icons.bell)}
       </button>
 
-      <div class="app-topbar__user">
-        <div class="app-topbar__avatar" aria-hidden="true">${getInitials(user.fullName)}</div>
+      <div class="app-topbar__profile-wrap">
+        <button class="app-topbar__user" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="userProfileMenu">
+        <div class="app-topbar__avatar" aria-hidden="true">${escapeHtml(getInitials(userName))}</div>
         <div class="app-topbar__user-meta">
-          <strong class="app-topbar__user-name">${user.fullName}</strong>
-          <span class="app-topbar__user-role">${user.role}</span>
+          <strong class="app-topbar__user-name">${escapeHtml(userName)}</strong>
+          <span class="app-topbar__user-role">${escapeHtml(roleLabel)}</span>
+        </div>
+        </button>
+
+        <div class="app-profile-menu" id="userProfileMenu" role="menu" hidden>
+          <div class="app-profile-menu__header">
+            <div class="app-profile-menu__avatar" aria-hidden="true">${escapeHtml(getInitials(userName))}</div>
+            <div>
+              <strong>${escapeHtml(userName)}</strong>
+              <span>${escapeHtml(roleLabel)}</span>
+            </div>
+          </div>
+          <dl class="app-profile-menu__list">
+            ${profileRows || `
+              <div class="app-profile-menu__row">
+                <dt>Holat</dt>
+                <dd>Profil ma'lumotlari mavjud emas</dd>
+              </div>
+            `}
+          </dl>
         </div>
       </div>
     </div>
@@ -73,6 +119,36 @@ export const createTopbar = ({
 
   topbar.querySelector(".app-topbar__toggle").addEventListener("click", () => {
     window.dispatchEvent(new CustomEvent("mrms:sidebar-toggle"));
+  });
+
+  const userButton = topbar.querySelector(".app-topbar__user");
+  const profileMenu = topbar.querySelector(".app-profile-menu");
+  const profileWrap = topbar.querySelector(".app-topbar__profile-wrap");
+
+  const setProfileOpen = (isOpen) => {
+    profileMenu.hidden = !isOpen;
+    userButton.setAttribute("aria-expanded", String(isOpen));
+  };
+
+  userButton.addEventListener("click", () => {
+    setProfileOpen(profileMenu.hidden);
+  });
+
+  document.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+
+    if (!target || profileWrap.contains(target)) {
+      return;
+    }
+
+    setProfileOpen(false);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      setProfileOpen(false);
+      userButton.focus();
+    }
   });
 
   return topbar;

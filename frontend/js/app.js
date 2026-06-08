@@ -96,6 +96,60 @@ const normalizeList = (payload) => {
   return Object.values(payload).find(Array.isArray) || [];
 };
 
+const findDoctorProfile = async (user) => {
+  if (user?.role !== "CLINICIAN") {
+    return null;
+  }
+
+  try {
+    const doctors = normalizeList(await doctorsApi.list());
+    const doctor = doctors.find((item) => {
+      return Number(item.doctorId) === Number(user.doctorId);
+    }) || doctors.find((item) => {
+      const fullName = String(item.fullName || "").toLowerCase();
+      const username = String(user.username || "").toLowerCase();
+      const userFullName = String(user.fullName || "").toLowerCase();
+
+      return fullName === userFullName || fullName.includes(username);
+    });
+
+    if (!doctor) {
+      return null;
+    }
+
+    const departments = normalizeList(await departmentsApi.list());
+    const department = departments.find((item) => {
+      return Number(item.departmentId) === Number(doctor.departmentId);
+    });
+
+    return {
+      ...doctor,
+      departmentName: department?.name || "",
+    };
+  } catch {
+    return null;
+  }
+};
+
+const buildTopbarUser = async (user) => {
+  const roleLabel = ROLE_LABELS[user?.role] || user?.role || "Foydalanuvchi";
+  const doctor = await findDoctorProfile(user);
+  const fullName = doctor?.fullName || user?.fullName || user?.username || "MRMS foydalanuvchi";
+  const details = [
+    { label: "Login", value: user?.username },
+    { label: "Rol", value: roleLabel },
+    { label: "Bo'lim", value: doctor?.departmentName || user?.department },
+    { label: "Telefon raqam", value: doctor?.phone || user?.phone },
+    { label: "Email", value: doctor?.email || user?.email },
+  ];
+
+  return {
+    fullName,
+    role: roleLabel,
+    details,
+  };
+};
+
 const recordMatchesQuery = (record, fields, query) => {
   return fields.some((field) => {
     return String(record?.[field] ?? "").toLowerCase().includes(query);
@@ -318,7 +372,7 @@ const closeMobileSidebar = (shell) => {
   }
 };
 
-const createAppLayout = (user) => {
+const createAppLayout = (user, topbarUser) => {
   const currentPage = getCurrentPage();
   const role = user?.role;
 
@@ -332,10 +386,7 @@ const createAppLayout = (user) => {
   content.className = "app-content";
 
   const topbar = createTopbar({
-    user: {
-      fullName: user?.username || "MRMS foydalanuvchi",
-      role: ROLE_LABELS[role] || role || "Foydalanuvchi",
-    },
+    user: topbarUser,
     searchPlaceholder: "Bemor, shifokor, bo'lim yoki tashxis qidirish...",
   });
 
@@ -449,7 +500,8 @@ const initApp = async () => {
 
   setDocumentPage(page);
 
-  const { shell, main } = createAppLayout(user);
+  const topbarUser = await buildTopbarUser(user);
+  const { shell, main } = createAppLayout(user, topbarUser);
 
   app.replaceChildren(shell);
   bindLayoutEvents(shell, main, user);

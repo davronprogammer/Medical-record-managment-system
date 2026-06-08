@@ -82,7 +82,18 @@ export const requireAuth = async () => {
   const cachedUser = getCurrentUser();
 
   if (cachedUser) {
-    return cachedUser;
+    try {
+      const refreshedUser = await refreshSession();
+
+      if (refreshedUser) {
+        return refreshedUser;
+      }
+
+      window.location.href = getLoginUrl();
+      return null;
+    } catch {
+      return cachedUser;
+    }
   }
 
   const user = await refreshSession();
